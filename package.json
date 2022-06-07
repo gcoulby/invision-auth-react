@@ -2,7 +2,7 @@
     "name": "invision-auth-react",
     "version": "0.1.0",
     "description": "This component provides a sign in button for Invision Community Forums. Users are presented with a button that says 'Sign in with Invision' and when they click the button they are forwarded to Invision to authenticate the React app.",
-    "main": "index.js",
+    "main": "dist/index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -22,5 +22,13 @@
     "bugs": {
         "url": "https://github.com/gcoulby/invision-auth-react/issues"
     },
-    "homepage": "https://grahamcoulby.co.uk/"
+    "homepage": "https://grahamcoulby.co.uk/",
+    "devDependencies": {
+        "@babel/cli": "^7.17.10",
+        "@babel/core": "^7.18.2",
+        "@babel/preset-env": "^7.18.2"
+    },
+    "dependencies": {
+        "@babel/polyfill": "^7.12.1"
+    }
 }
