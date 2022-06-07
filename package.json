@@ -1,8 +1,8 @@
 {
     "name": "invision-auth-react",
-    "version": "0.2.0",
+    "version": "0.2.2",
     "description": "This component provides a sign in button for Invision Community Forums. Users are presented with a button that says 'Sign in with Invision' and when they click the button they are forwarded to Invision to authenticate the React app.",
-    "main": "dist/index.js",
+    "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
