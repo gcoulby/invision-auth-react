@@ -1,0 +1,26 @@
+{
+    "name": "invision-auth-react",
+    "version": "0.1.0",
+    "description": "This component provides a sign in button for Invision Community Forums. Users are presented with a button that says 'Sign in with Invision' and when they click the button they are forwarded to Invision to authenticate the React app.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/gcoulby/invision-auth-react.git"
+    },
+    "keywords": [
+        "react",
+        "component",
+        "oauth",
+        "invision",
+        "community"
+    ],
+    "author": "Graham Coulby",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/gcoulby/invision-auth-react/issues"
+    },
+    "homepage": "https://grahamcoulby.co.uk/"
+}
