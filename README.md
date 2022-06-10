@@ -2,12 +2,13 @@
 
 This component provides a sign in button for Invision Community Forums. Users are presented with a button that says 'Sign in with Invision' and when they click the button they are forwarded to Invision to authenticate the React app.
 
-## Install the component
+## Pull the repo	
 
-Install the component with the following command from the terminal
+Clone this repo into the components folder 
 
 ```bash
-npm install invision-auth-react
+cd <react_project_root>/src/components
+git clone https://github.com/gcoulby/invision-auth-react.git
 ```
 
 ## Import the component
@@ -15,7 +16,7 @@ npm install invision-auth-react
 Import the component into your project with the following command from the terminal
 
 ```js
-import { InvisionSignin } from "invision-auth-react";
+import { InvisionSignin } from "components/invision-auth-react/invision-auth-react";
 ```
 
 ## Include the component in your project

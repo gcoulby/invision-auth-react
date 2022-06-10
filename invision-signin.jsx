@@ -39,6 +39,7 @@ function InvisionSignIn({ community_url, client_id, scopes }) {
         setAccessToken("");
         setProfileData("");
         localStorage.removeItem(`invision_credentials(${client_id})`);
+        localStorage.removeItem(`invision_profile_data(${client_id})`);
         window.location.href = "/";
     };
 
@@ -90,6 +91,10 @@ function InvisionSignIn({ community_url, client_id, scopes }) {
                 .then((response) => response.json())
                 .then((responseData) => {
                     setProfileData(responseData);
+                    localStorage.setItem(
+                        `invision_profile_data(${client_id})`,
+                        JSON.stringify(responseData)
+                    );
                     return responseData;
                 });
         }
@@ -147,4 +152,4 @@ function InvisionSignIn({ community_url, client_id, scopes }) {
     );
 }
 
-export { InvisionSignIn };
+export default InvisionSignIn;
