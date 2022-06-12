@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useContext } from "react";
+import { UserContext } from "../../App";
 
 function InvisionSignIn({ community_url, client_id, scopes }) {
+    let context = useContext(UserContext);
     const access_reg = /access_token=(.*?)&/;
     const expiry_reg = /expires_in=([0-9]+)/;
-
-    const [accessToken, setAccessToken] = useState("");
-    const [profileData, setProfileData] = useState("");
 
     const styles = {
         invision_signin: {
@@ -22,6 +21,7 @@ function InvisionSignIn({ community_url, client_id, scopes }) {
         invision_icon: {
             width: "30px",
             height: "30px",
+            paddingLeft: "0.2em",
             borderRadius: "50%",
             display: "inline-block",
             backgroundColor: "#c2c2c2",
@@ -36,26 +36,34 @@ function InvisionSignIn({ community_url, client_id, scopes }) {
     };
 
     const signOut = () => {
-        setAccessToken("");
-        setProfileData("");
+        context.updateUser({
+            access_token: "",
+            expiry: "",
+            user: {},
+        });
         localStorage.removeItem(`invision_credentials(${client_id})`);
-        localStorage.removeItem(`invision_profile_data(${client_id})`);
         window.location.href = "/";
     };
 
-    const storeCreditentials = (access_token, expires_in) => {
-        setAccessToken(access_token);
+    const storeCreditentials = (access_token, expiry, user) => {
+        context.updateUser({
+            access_token: access_token,
+            expiry: expiry,
+            user: user,
+        });
         localStorage.setItem(
             `invision_credentials(${client_id})`,
             JSON.stringify({
                 access_token: access_token,
-                expiry: expires_in,
+                expiry: expiry,
+                user: user,
             })
         );
     };
 
     useEffect(() => {
-        let access_token = "";
+        let access_token = context.data.access_token ?? "";
+        let expiry = context.data.expiry ?? "";
 
         let localCredentials = localStorage.getItem(
             `invision_credentials(${client_id})`
@@ -65,7 +73,8 @@ function InvisionSignIn({ community_url, client_id, scopes }) {
             if (credentials.expiry > Date.now()) {
                 storeCreditentials(
                     credentials.access_token,
-                    credentials.expiry
+                    credentials.expiry,
+                    credentials.user
                 );
                 access_token = credentials.access_token;
             }
@@ -80,8 +89,7 @@ function InvisionSignIn({ community_url, client_id, scopes }) {
             let expires_in =
                 match_expiry && match_expiry.length > 0 ? match_expiry[1] : "";
 
-            let expiry = Date.now() + parseInt(expires_in) * 1000;
-            storeCreditentials(access_token, expiry);
+            expiry = Date.now() + parseInt(expires_in) * 1000;
         }
         if (access_token != "") {
             fetch(
@@ -90,12 +98,7 @@ function InvisionSignIn({ community_url, client_id, scopes }) {
             )
                 .then((response) => response.json())
                 .then((responseData) => {
-                    setProfileData(responseData);
-                    localStorage.setItem(
-                        `invision_profile_data(${client_id})`,
-                        JSON.stringify(responseData)
-                    );
-                    return responseData;
+                    storeCreditentials(access_token, expiry, responseData);
                 });
         }
     }, []);
@@ -103,17 +106,17 @@ function InvisionSignIn({ community_url, client_id, scopes }) {
     return (
         <>
             <div className="invision_button" style={styles.invision_signin}>
-                {accessToken !== "" ? (
+                {context.data.access_token !== "" ? (
                     <div className="invision_button_signOut" onClick={signOut}>
                         <img
                             className="invision_button_photo"
                             style={styles.invision_photo}
-                            src={profileData.photoUrl}
+                            src={context.data.user.photoUrl}
                             alt="profile_photo"
                             title="profile_photo"
                         ></img>
                         <span className="invision_button_signout_text">
-                            Sign Out ({profileData.name})
+                            Sign Out ({context.data.user.name})
                         </span>
                     </div>
                 ) : (
