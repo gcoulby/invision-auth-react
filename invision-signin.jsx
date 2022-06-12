@@ -129,7 +129,7 @@ function InvisionSignIn({ community_url, client_id, scopes }) {
                             style={styles.invision_icon}
                         >
                             <svg
-                                class="svg-icon"
+                                className="svg-icon"
                                 style={{
                                     padding: "0.2em",
                                     width: "1.5em",
