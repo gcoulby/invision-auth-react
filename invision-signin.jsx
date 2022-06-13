@@ -146,7 +146,7 @@ function InvisionSignIn({ community_url, client_id, scopes }) {
                             </svg>
                         </span>
                         <span className="invision_button_signin_text">
-                            Sign in with Invision
+                            Sign in with forum account
                         </span>
                     </div>
                 )}
